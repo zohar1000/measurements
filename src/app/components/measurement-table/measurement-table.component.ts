@@ -19,7 +19,7 @@ export class MeasurementTableComponent {
   @Output() rowEdited = new EventEmitter();
   private _data;
   editedRowId = '';
-  editedRowValue;
+  editedRow;
   isFormDisabled = false;
   addedRow: any = {};
 
@@ -37,19 +37,19 @@ export class MeasurementTableComponent {
 
   onClickEdit(row) {
     this.editedRowId = row.time;
-    this.editedRowValue = { ...row };
+    this.editedRow = { ...row };
   }
 
   onInput(key, e) {
-    this.editedRowValue[key] = Number(e.target.value);
+    this.editedRow[key] = Number(e.target.value);
   }
 
-  onClickSave() {
+  onClickSave(row) {
     this.isFormDisabled = true;
-    const message = `update for time ${this.editedRowValue.time}: ${JSON.stringify(this.editedRowValue)}`;
+    const message = `update for time ${this.editedRow.time}: ${JSON.stringify(this.editedRow)}`;
     console.log(message);
     alert(message);
-    this.rowEdited.emit(this.editedRowValue);
+    this.rowEdited.emit({ row, editedRow: this.editedRow });
   }
 
   onClickCancel() {
@@ -58,7 +58,7 @@ export class MeasurementTableComponent {
 
   clearEditState() {
     this.editedRowId = '';
-    this.editedRowValue = null;
+    this.editedRow = null;
     this.isFormDisabled = false;
     this.addedRow = {};
   }

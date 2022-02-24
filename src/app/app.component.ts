@@ -18,10 +18,10 @@ export class AppComponent {
     });
   }
 
-  onRowEdited(editableRowValue) {
-    const ix = this.data.findIndex(item => item.time === editableRowValue.time);
+  onRowEdited({ row, editedRow }) {
+    const ix = this.data.findIndex(item => item === row);
     setTimeout(() => {
-      this.data[ix] = { ...editableRowValue };
+      this.data[ix] = { ...editedRow };
       this.data = [ ...this.data ];
     });
   }

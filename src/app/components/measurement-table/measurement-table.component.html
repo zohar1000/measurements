@@ -20,11 +20,11 @@
     <ng-container *ngFor="let row of data ; let i=index">
       <tr>
         <ng-container *ngIf="editedRowId===row.time">
-          <td>{{editedRowValue.time}}</td>
-          <td><input [value]="editedRowValue.pulse" (input)="onInput('pulse', $event)"></td>
-          <td><input [value]="editedRowValue.pressure" (input)="onInput('pressure', $event)"></td>
+          <td>{{editedRow.time}}</td>
+          <td><input [value]="editedRow.pulse" (input)="onInput('pulse', $event)"></td>
+          <td><input [value]="editedRow.pressure" (input)="onInput('pressure', $event)"></td>
           <td>
-            <button (click)="onClickSave()">Save</button>
+            <button (click)="onClickSave(row)">Save</button>
             <button (click)="onClickCancel()">Cancel</button>
           </td>
         </ng-container>
