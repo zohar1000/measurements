@@ -1,44 +1,42 @@
 <p>measurement-table works!</p>
 
-<form [formGroup]="measurementTable">
-  <table class="table">
-    <thead>
-      <th>Patient</th>
-      <th>Pulse</th>
-      <th>Pressure</th>
-      <th>Action</th>
-    </thead>
+<table class="table">
+  <thead>
+    <th>Time</th>
+    <th>Pulse</th>
+    <th>Pressure</th>
+    <th>Action</th>
+  </thead>
 
-    <tbody>
-      <ng-container formArrayName="rows" *ngFor="let row of rowsControl.controls ; let i=index">
-        <tr>
-          <ng-container *ngIf="editableRowId===row.value.patient">
-            <td>{{editableRowValue.patient}}</td>
-            <td><input [value]="editableRowValue.pulse" (input)="onInput('pulse', $event)"></td>
-            <td><input [value]="editableRowValue.pressure" (input)="onInput('pressure', $event)"></td>
-            <td>
-              <button (click)="onClickSave()">Save</button>
-              <button (click)="onClickCancel()">Cancel</button>
-            </td>
-          </ng-container>
-
-          <ng-container *ngIf="editableRowId!==row.value.patient">
-            <td>{{row.value.patient}}</td>
-            <td>{{row.value.pulse}}</td>
-            <td>{{row.value.pressure}}</td>
-            <td><button (click)="onClickEdit(row)" [hidden]="editableRowId">Edit</button></td>
-          </ng-container>
-        </tr>
-
-
-
+  <tbody [ngClass]="{disabled: isFormDisabled}">
+    <tr>
+      <ng-container>
+        <td></td>
+        <td><input [value]="addedRow.pulse || ''" (input)="onInputAdd('pulse', $event)"></td>
+        <td><input [value]="addedRow.pressure || ''" (input)="onInputAdd('pressure', $event)"></td>
+        <td><button (click)="onClickAdd()">ADD</button></td>
       </ng-container>
+    </tr>
+    <ng-container *ngFor="let row of data ; let i=index">
+      <tr>
+        <ng-container *ngIf="editedRowId===row.time">
+          <td>{{editedRowValue.time}}</td>
+          <td><input [value]="editedRowValue.pulse" (input)="onInput('pulse', $event)"></td>
+          <td><input [value]="editedRowValue.pressure" (input)="onInput('pressure', $event)"></td>
+          <td>
+            <button (click)="onClickSave()">Save</button>
+            <button (click)="onClickCancel()">Cancel</button>
+          </td>
+        </ng-container>
 
+        <ng-container *ngIf="editedRowId!==row.time">
+          <td>{{row.time}}</td>
+          <td>{{row.pulse}}</td>
+          <td>{{row.pressure}}</td>
+          <td><button (click)="onClickEdit(row)" [hidden]="editedRowId">Edit</button></td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
 
-    </tbody>
-
-  </table>
-
-
-
-</form>

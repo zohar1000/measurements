@@ -1,1 +1,6 @@
-<app-measurement-table></app-measurement-table>
+<app-measurement-table
+    [data]="data"
+    (rowAdded)="onRowAdded($event)"
+    (rowEdited)="onRowEdited($event)"
+>
+</app-measurement-table>

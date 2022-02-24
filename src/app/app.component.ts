@@ -6,5 +6,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'measurements';
+  data = [
+    { time: '2022-02-02 10:00:00', pulse: 70, pressure: 80 },
+    { time: '2022-01-01 10:00:00', pulse: 90, pressure: 100 },
+  ];
+
+  onRowAdded(addedRowValue) {
+    this.data.unshift({ time: this.getUnitTime(), ...addedRowValue });
+    setTimeout(() => {
+      this.data = [ ...this.data ];
+    });
+  }
+
+  onRowEdited(editableRowValue) {
+    const ix = this.data.findIndex(item => item.time === editableRowValue.time);
+    setTimeout(() => {
+      this.data[ix] = { ...editableRowValue };
+      this.data = [ ...this.data ];
+    });
+  }
+
+  getUnitTime() {
+    return (new Date()).toISOString().replace('T', ' ').substr(0, 19);
+  }
 }

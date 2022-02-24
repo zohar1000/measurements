@@ -1,49 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-measurement-table',
   templateUrl: './measurement-table.component.html',
   styleUrls: ['./measurement-table.component.scss']
 })
-export class MeasurementTableComponent implements OnInit {
-  measurementTable: FormGroup;
-  rowsControl: FormArray;
-  data = [
-    { patient: 1, pulse: 90, pressure: 100 },
-    { patient: 2, pulse: 70, pressure: 80 },
-  ];
-  editableRowId = '';
-  editableRowValue;
+export class MeasurementTableComponent {
+  @Input() get data() {
+    return this._data;
+  } set data(value) {
+    this._data = value;
+    console.log('data:', value);
+    this.addedRow = {};
+    this.clearEditState();
 
-  constructor(private fb: FormBuilder) { }
+  }
+  @Output() rowAdded = new EventEmitter();
+  @Output() rowEdited = new EventEmitter();
+  private _data;
+  editedRowId = '';
+  editedRowValue;
+  isFormDisabled = false;
+  addedRow: any = {};
 
-  ngOnInit(): void {
-    this.measurementTable = this.fb.group({
-      rows: this.fb.array()
-    });
-    this.rowsControl = this.measurementTable.get('rows') as FormArray;
+  onInputAdd(key, e) {
+    this.addedRow[key] = Number(e.target.value);
   }
 
-  onClickEdit(row: AbstractControl) {
-    this.editableRowId = row.value.patient;
-    this.editableRowValue = { ...row.value };
+  onClickAdd() {
+    this.isFormDisabled = true;
+    const message = `add: ${JSON.stringify(this.addedRow)}`;
+    console.log(message);
+    alert(message);
+    this.rowAdded.emit(this.addedRow);
+  }
+
+  onClickEdit(row) {
+    this.editedRowId = row.time;
+    this.editedRowValue = { ...row };
   }
 
   onInput(key, e) {
-    this.editableRowValue[key] = Number(e.target.value);
+    this.editedRowValue[key] = Number(e.target.value);
   }
 
   onClickSave() {
-    const message = `update for patient ${this.editableRowValue.patient}: ${JSON.stringify(this.editableRowValue)}`;
+    this.isFormDisabled = true;
+    const message = `update for time ${this.editedRowValue.time}: ${JSON.stringify(this.editedRowValue)}`;
     console.log(message);
     alert(message);
-    const ix = this.data.findIndex(item => item.patient === this.editableRowValue.patient);
-    this.data[ix] = { ...this.editableRowValue };
-    this.clearEditState();
-    setTimeout(() => {
-      this.rowsControl.setValue(this.data);
-    });
+    this.rowEdited.emit(this.editedRowValue);
   }
 
   onClickCancel() {
@@ -51,7 +57,9 @@ export class MeasurementTableComponent implements OnInit {
   }
 
   clearEditState() {
-    this.editableRowId = '';
-    this.editableRowValue = null;
+    this.editedRowId = '';
+    this.editedRowValue = null;
+    this.isFormDisabled = false;
+    this.addedRow = {};
   }
 }

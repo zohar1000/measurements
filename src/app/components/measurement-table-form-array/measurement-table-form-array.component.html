@@ -1,0 +1,44 @@
+<p>measurement-table works!</p>
+
+<form [formGroup]="measurementTable">
+  <table class="table">
+    <thead>
+    <th>Patient</th>
+    <th>Pulse</th>
+    <th>Pressure</th>
+    <th>Action</th>
+    </thead>
+
+    <tbody [ngClass]="{disabled: isFormDisabled}">
+    <ng-container formArrayName="rows" *ngFor="let row of rowsControl.controls ; let i=index">
+      <tr>
+        <ng-container *ngIf="editableRowId===row.value.patient">
+          <td>{{editableRowValue.patient}}</td>
+          <td><input [value]="editableRowValue.pulse" (input)="onInput('pulse', $event)"></td>
+          <td><input [value]="editableRowValue.pressure" (input)="onInput('pressure', $event)"></td>
+          <td>
+            <button (click)="onClickSave()">Save</button>
+            <button (click)="onClickCancel()">Cancel</button>
+          </td>
+        </ng-container>
+
+        <ng-container *ngIf="editableRowId!==row.value.patient">
+          <td>{{row.value.patient}}</td>
+          <td>{{row.value.pulse}}</td>
+          <td>{{row.value.pressure}}</td>
+          <td><button (click)="onClickEdit(row)" [hidden]="editableRowId">Edit</button></td>
+        </ng-container>
+      </tr>
+
+
+
+    </ng-container>
+
+
+    </tbody>
+
+  </table>
+
+
+
+</form>
