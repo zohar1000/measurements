@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-measurement-table',
   templateUrl: './measurement-table.component.html',
   styleUrls: ['./measurement-table.component.scss']
 })
-export class MeasurementTableComponent {
+export class MeasurementTableComponent implements OnInit {
   @Input() get data() {
     return this._data;
   } set data(value) {
@@ -22,6 +23,21 @@ export class MeasurementTableComponent {
   editedRow;
   isFormDisabled = false;
   addedRow: any = {};
+  fgAdd: FormGroup;
+  fgEdit: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.fgAdd = this.fb.group({
+      pulse: new FormControl('', [Validators.required]),
+      pressure: new FormControl('')
+    });
+    this.fgEdit = this.fb.group({
+      pulse: new FormControl('', [Validators.required]),
+      pressure: new FormControl('')
+    });
+  }
 
   onInputAdd(key, e) {
     this.addedRow[key] = Number(e.target.value);
@@ -38,10 +54,12 @@ export class MeasurementTableComponent {
   onClickEdit(row) {
     this.editedRowId = row.time;
     this.editedRow = { ...row };
+    this.fgEdit.get('pulse').setValue(this.editedRow.pulse);
+    this.fgEdit.get('pressure').setValue(this.editedRow.pressure);
   }
 
   onInput(key, e) {
-    this.editedRow[key] = Number(e.target.value);
+    this.editedRow[key] = e.target.value === '' ? '' : Number(e.target.value);
   }
 
   onClickSave(row) {

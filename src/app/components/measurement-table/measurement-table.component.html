@@ -10,21 +10,21 @@
 
   <tbody [ngClass]="{disabled: isFormDisabled}">
     <tr>
-      <ng-container>
+      <ng-container [formGroup]="fgAdd">
         <td></td>
-        <td><input [value]="addedRow.pulse || ''" (input)="onInputAdd('pulse', $event)"></td>
-        <td><input [value]="addedRow.pressure || ''" (input)="onInputAdd('pressure', $event)"></td>
-        <td><button (click)="onClickAdd()">ADD</button></td>
+        <td><input [formControlName]="'pulse'" [value]="addedRow.pulse || ''" (input)="onInputAdd('pulse', $event)"></td>
+        <td><input [formControlName]="'pressure'" [value]="addedRow.pressure || ''" (input)="onInputAdd('pressure', $event)"></td>
+        <td><button (click)="onClickAdd()" [disabled]="fgAdd.invalid">ADD</button></td>
       </ng-container>
     </tr>
     <ng-container *ngFor="let row of data ; let i=index">
       <tr>
-        <ng-container *ngIf="editedRowId===row.time">
+        <ng-container *ngIf="editedRowId===row.time" [formGroup]="fgEdit">
           <td>{{editedRow.time}}</td>
-          <td><input [value]="editedRow.pulse" (input)="onInput('pulse', $event)"></td>
-          <td><input [value]="editedRow.pressure" (input)="onInput('pressure', $event)"></td>
+          <td><input [formControlName]="'pulse'" [value]="editedRow.pulse" (input)="onInput('pulse', $event)"></td>
+          <td><input [formControlName]="'pressure'" [value]="editedRow.pressure" (input)="onInput('pressure', $event)"></td>
           <td>
-            <button (click)="onClickSave(row)">Save</button>
+            <button (click)="onClickSave(row)" [disabled]="fgEdit.invalid">Save</button>
             <button (click)="onClickCancel()">Cancel</button>
           </td>
         </ng-container>
