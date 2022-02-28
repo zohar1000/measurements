@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormConfig } from '../../shared/models/form-config.model';
 
 @Component({
   selector: 'app-measurement-table',
@@ -14,29 +15,25 @@ export class MeasurementTableComponent implements OnInit {
     console.log('data:', value);
     this.addedRow = {};
     this.clearEditState();
-
   }
+  @Input() itemConfig: FormConfig[];
   @Output() rowAdded = new EventEmitter();
   @Output() rowEdited = new EventEmitter();
   private _data;
-  editedRowId = '';
+  editedRowRef = null;
   editedRow;
   isFormDisabled = false;
   addedRow: any = {};
   fgAdd: FormGroup;
   fgEdit: FormGroup;
+  names: string[];
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.fgAdd = this.fb.group({
-      pulse: new FormControl('', [Validators.required]),
-      pressure: new FormControl('')
-    });
-    this.fgEdit = this.fb.group({
-      pulse: new FormControl('', [Validators.required]),
-      pressure: new FormControl('')
-    });
+    this.names = this.itemConfig.map(control => control.name);
+    this.fgAdd = this.getInitialFormGroup();
+    this.fgEdit = this.getInitialFormGroup();
   }
 
   onInputAdd(key, e) {
@@ -52,10 +49,11 @@ export class MeasurementTableComponent implements OnInit {
   }
 
   onClickEdit(row) {
-    this.editedRowId = row.time;
+    this.editedRowRef = row;
     this.editedRow = { ...row };
-    this.fgEdit.get('pulse').setValue(this.editedRow.pulse);
-    this.fgEdit.get('pressure').setValue(this.editedRow.pressure);
+    this.names.map(name => {
+      this.fgEdit.get(name).setValue(this.editedRow[name]);
+    });
   }
 
   onInput(key, e) {
@@ -75,9 +73,17 @@ export class MeasurementTableComponent implements OnInit {
   }
 
   clearEditState() {
-    this.editedRowId = '';
+    this.editedRowRef = null;
     this.editedRow = null;
     this.isFormDisabled = false;
     this.addedRow = {};
+  }
+
+  getInitialFormGroup() {
+    const controls = {};
+    this.itemConfig.forEach(control => {
+      controls[control.name] = new FormControl('', control.validations || []);
+    });
+    return this.fb.group(controls);
   }
 }

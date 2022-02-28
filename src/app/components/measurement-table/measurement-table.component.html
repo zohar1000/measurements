@@ -2,9 +2,7 @@
 
 <table class="table">
   <thead>
-    <th>Time</th>
-    <th>Pulse</th>
-    <th>Pressure</th>
+    <th *ngFor="let name of names">{{name | titlecase}}</th>
     <th>Action</th>
   </thead>
 
@@ -19,21 +17,19 @@
     </tr>
     <ng-container *ngFor="let row of data ; let i=index">
       <tr>
-        <ng-container *ngIf="editedRowId===row.time" [formGroup]="fgEdit">
-          <td>{{editedRow.time}}</td>
-          <td><input [formControlName]="'pulse'" [value]="editedRow.pulse" (input)="onInput('pulse', $event)"></td>
-          <td><input [formControlName]="'pressure'" [value]="editedRow.pressure" (input)="onInput('pressure', $event)"></td>
+        <ng-container *ngIf="editedRowRef===row" [formGroup]="fgEdit">
+          <td *ngFor="let name of names">
+            <input [formControlName]="name" [value]="editedRow[name]" (input)="onInput(name, $event)">
+          </td>
           <td>
             <button (click)="onClickSave(row)" [disabled]="fgEdit.invalid">Save</button>
             <button (click)="onClickCancel()">Cancel</button>
           </td>
         </ng-container>
 
-        <ng-container *ngIf="editedRowId!==row.time">
-          <td>{{row.time}}</td>
-          <td>{{row.pulse}}</td>
-          <td>{{row.pressure}}</td>
-          <td><button (click)="onClickEdit(row)" [hidden]="editedRowId">Edit</button></td>
+        <ng-container *ngIf="editedRowRef!==row">
+          <td *ngFor="let name of names">{{row[name]}}</td>
+          <td><button (click)="onClickEdit(row)" [hidden]="editedRowRef">Edit</button></td>
         </ng-container>
       </tr>
     </ng-container>

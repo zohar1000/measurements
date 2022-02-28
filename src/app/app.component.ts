@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { FormConfig } from './shared/models/form-config.model';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +11,11 @@ export class AppComponent {
   data = [
     { time: '2022-02-02 10:00:00', pulse: 70, pressure: 80 },
     { time: '2022-01-01 10:00:00', pulse: 90, pressure: 100 },
+  ];
+  itemConfig: FormConfig[] = [
+    { name: 'time', type: 'Date' },
+    { name: 'pulse', type: 'Number', validations: [Validators.required] },
+    { name: 'pressure', type: 'Number' }
   ];
 
   onRowAdded(addedRowValue) {
