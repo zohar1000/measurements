@@ -15,8 +15,7 @@
         <td><button (click)="onClickAdd()" [disabled]="fgAdd.invalid">ADD</button></td>
       </ng-container>
     </tr>
-    <ng-container *ngFor="let row of data ; let i=index">
-      <app-mediator
+    <tr app-mediator *ngFor="let row of data ; let i=index"
         [row]="row"
         [fgEdit]="fgEdit"
         [config]="itemConfig"
@@ -25,23 +24,7 @@
         (startEditRow)="onStartEditRow($event)"
         (rowUpdated)="onRowUpdated($event)"
         (rowCanceled)="onRowCanceled()">
-      </app-mediator>
-
-<!--        <ng-container *ngIf="editedRowRef===row" [formGroup]="fgEdit">
-          <td *ngFor="let name of names">
-            <input [formControlName]="name" [value]="editedRow[name]" (input)="onInput(name, $event)">
-          </td>
-          <td>
-            <button (click)="onClickSave(row)" [disabled]="fgEdit.invalid">Save</button>
-            <button (click)="onClickCancel()">Cancel</button>
-          </td>
-        </ng-container>
-
-        <ng-container *ngIf="editedRowRef!==row">
-          <td *ngFor="let name of names">{{row[name]}}</td>
-          <td><button (click)="onClickEdit(row)" [hidden]="editedRowRef">Edit</button></td>
-        </ng-container>-->
-    </ng-container>
+    </tr>
   </tbody>
 </table>
 

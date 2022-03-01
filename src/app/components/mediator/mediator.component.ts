@@ -3,11 +3,12 @@ import { FormGroup } from '@angular/forms';
 import { FormConfig } from '../../shared/models/form-config.model';
 
 @Component({
-  selector: 'app-mediator',
+  // tslint:disable-next-line:component-selector
+  selector: 'tr[app-mediator]',
   templateUrl: './mediator.component.html',
   styleUrls: ['./mediator.component.scss']
 })
-export class MediatorComponent implements OnInit {
+export class MediatorComponent {
   @Input() row;
   @Input() fgEdit: FormGroup;
   @Input() isDisplay = true;
@@ -21,17 +22,7 @@ export class MediatorComponent implements OnInit {
   @Input() fieldNames: string[];
   editedRow;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log('row:', this.row);
-    console.log('editedRowRef:', this.editedRowRef);
-    console.log('fieldNames:', this.fieldNames);
-    console.log('fgEdit:', this.fgEdit);
-  }
-
   onClickEdit(row) {
-    console.log('fgEdit:', this.fgEdit);
     this.editedRow = { ...row };
     this.fieldNames.map(name => {
       this.fgEdit.get(name).setValue(this.editedRow[name]);
