@@ -1,5 +1,5 @@
+import { FieldConfig } from './field-config.model';
+
 export interface FormConfig {
-  name: string;
-  type?: string;
-  validations?: any[];
+  fields: FieldConfig[];
 }

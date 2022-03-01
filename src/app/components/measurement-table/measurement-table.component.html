@@ -2,7 +2,7 @@
 
 <table class="table">
   <thead>
-    <th *ngFor="let name of names">{{name | titlecase}}</th>
+    <th *ngFor="let name of fieldNames">{{name | titlecase}}</th>
     <th>Action</th>
   </thead>
 
@@ -16,8 +16,18 @@
       </ng-container>
     </tr>
     <ng-container *ngFor="let row of data ; let i=index">
-      <tr>
-        <ng-container *ngIf="editedRowRef===row" [formGroup]="fgEdit">
+      <app-mediator
+        [row]="row"
+        [fgEdit]="fgEdit"
+        [config]="itemConfig"
+        [editedRowRef]="editedRowRef"
+        [fieldNames]="fieldNames"
+        (startEditRow)="onStartEditRow($event)"
+        (rowUpdated)="onRowUpdated($event)"
+        (rowCanceled)="onRowCanceled()">
+      </app-mediator>
+
+<!--        <ng-container *ngIf="editedRowRef===row" [formGroup]="fgEdit">
           <td *ngFor="let name of names">
             <input [formControlName]="name" [value]="editedRow[name]" (input)="onInput(name, $event)">
           </td>
@@ -30,8 +40,7 @@
         <ng-container *ngIf="editedRowRef!==row">
           <td *ngFor="let name of names">{{row[name]}}</td>
           <td><button (click)="onClickEdit(row)" [hidden]="editedRowRef">Edit</button></td>
-        </ng-container>
-      </tr>
+        </ng-container>-->
     </ng-container>
   </tbody>
 </table>
