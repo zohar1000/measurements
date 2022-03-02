@@ -11,6 +11,7 @@ import { FieldMode } from '../../shared/enums/field-mode.enum';
 })
 export class SmartNativeTableRowComponent {
   @Input() data;
+  @Input() fgAdd: FormGroup;
   @Input() fgEdit: FormGroup;
   @Input() config: FormConfig;
   @Input() editedRowRef;
@@ -21,6 +22,13 @@ export class SmartNativeTableRowComponent {
   @Output() rowUpdated = new EventEmitter();
   @Output() rowCanceled = new EventEmitter();
   FieldMode = FieldMode;
+
+  onClickAdd() {
+    const message = `add row: ${JSON.stringify(this.fgAdd.value)}`;
+    console.log(message);
+    alert(message);
+    this.rowAdded.emit(this.fgAdd.value);
+  }
 
   onClickEdit(row) {
     this.fieldNames.map(name => {

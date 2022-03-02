@@ -5,14 +5,24 @@
   </thead>
 
   <tbody [ngClass]="{disabled: isFormDisabled}">
-    <tr>
+<!--    <tr>
       <ng-container [formGroup]="fgAdd">
         <td></td>
         <td><input [formControlName]="'pulse'" [value]="addedRow.pulse || ''" (input)="onInputAdd('pulse', $event)"></td>
         <td><input [formControlName]="'pressure'" [value]="addedRow.pressure || ''" (input)="onInputAdd('pressure', $event)"></td>
         <td><button (click)="onClickAdd()" [disabled]="fgAdd.invalid">ADD</button></td>
       </ng-container>
+    </tr>-->
+
+    <tr app-smart-native-table-row
+        [fgAdd]="fgAdd"
+        [config]="rowFormConfig"
+        [fieldNames]="fieldNames"
+        [fieldConfigs]="fieldConfigs"
+        (rowAdded)="onRowAdded($event)">
     </tr>
+
+
     <tr app-smart-native-table-row *ngFor="let rowData of data"
         [data]="rowData"
         [fgEdit]="fgEdit"

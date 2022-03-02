@@ -41,12 +41,9 @@ export class SmartNativeTableComponent implements OnInit {
     this.addedRow[key] = Number(e.target.value);
   }
 
-  onClickAdd() {
+  onRowAdded(value) {
     this.isFormDisabled = true;
-    const message = `add: ${JSON.stringify(this.addedRow)}`;
-    console.log(message);
-    alert(message);
-    this.rowAdded.emit(this.addedRow);
+    this.rowAdded.emit(value);
   }
 
   onStartEditRow(row) {
@@ -65,7 +62,7 @@ export class SmartNativeTableComponent implements OnInit {
   clearEditState() {
     this.editedRowRef = null;
     this.isFormDisabled = false;
-    // this.addedRow = {};
+    if (this.fgAdd) this.fgAdd.reset();
   }
 
   getInitialFormGroup() {

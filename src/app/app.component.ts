@@ -17,13 +17,13 @@ export class AppComponent {
   ];
   rowFormConfig: FormConfig = {
     fields: [
-    { attributes: { name: 'time' }, inputType: InputType.Date },
+    { attributes: { name: 'time' }, inputType: InputType.Date, validations: [Validators.required] },
     { attributes: { name: 'pulse' }, inputType: InputType.Number, validations: [Validators.required] },
     { attributes: { name: 'pressure' }, inputType: InputType.Number }
   ]};
 
-  onRowAdded(addedRowValue) {
-    this.data.unshift({ time: this.getUnitTime(), ...addedRowValue });
+  onRowAdded(value) {
+    this.data.unshift(value);
     setTimeout(() => {
       this.data = [ ...this.data ];
     });
