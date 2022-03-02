@@ -21,29 +21,25 @@ export class SmartNativeTableRowComponent {
   @Output() rowUpdated = new EventEmitter();
   @Output() rowCanceled = new EventEmitter();
   FieldMode = FieldMode;
-  editedRow;
 
   onClickEdit(row) {
-    this.editedRow = { ...row };
     this.fieldNames.map(name => {
-      this.fgEdit.get(name).setValue(this.editedRow[name]);
+      const formControl = this.fgEdit.get(name);
+      formControl.setValue(row[name]);
+console.log('this.fieldConfigs[name].validations:', this.fieldConfigs[name].validations);
+      if (this.fieldConfigs[name].validations) formControl.setValidators(this.fieldConfigs[name].validations);
     });
     this.startEditRow.emit(row);
   }
 
-  onInput(key, e) {
-    this.editedRow[key] = e.target.value === '' ? '' : Number(e.target.value);
-  }
-
-  onClickSave(row) {
+  onClickSave() {
     const message = `update row to: ${JSON.stringify(this.fgEdit.value)}`;
     console.log(message);
     alert(message);
-    this.rowUpdated.emit({ row, editedRow: this.fgEdit.value });
+    this.rowUpdated.emit({ value: this.fgEdit.value });
   }
 
   onClickCancel() {
-    this.editedRow = null;
     this.rowCanceled.emit();
   }
 }

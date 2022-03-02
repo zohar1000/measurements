@@ -53,9 +53,9 @@ export class SmartNativeTableComponent implements OnInit {
     this.editedRowRef = row;
   }
 
-  onRowUpdated(data) {
+  onRowUpdated(event) {
     this.isFormDisabled = true;
-    this.rowEdited.emit(data);
+    this.rowEdited.emit({ ...event, editedRowRef: this.editedRowRef });
   }
 
   onRowCanceled() {

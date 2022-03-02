@@ -8,6 +8,10 @@ import { SmartFieldComponent } from './components/smart-field/smart-field.compon
 import { SmartInputComponent } from './components/smart-input/smart-input.component';
 import { SmartNativeTableComponent } from './components/smart-native-table/smart-native-table.component';
 import { SmartNativeTableRowComponent } from './components/smart-native-table-row/smart-native-table-row..component';
+import { SmartDateComponent } from './components/smart-date/smart-date.component';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertConfig } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -15,15 +19,18 @@ import { SmartNativeTableRowComponent } from './components/smart-native-table-ro
     SmartNativeTableComponent,
     SmartNativeTableRowComponent,
     SmartFieldComponent,
-    SmartInputComponent
+    SmartInputComponent,
+    SmartDateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
   ],
-  providers: [],
+  providers: [AlertConfig, BsDatepickerConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

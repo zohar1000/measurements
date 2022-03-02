@@ -1,0 +1,13 @@
+<ng-container *ngIf="fieldMode===FieldMode.Display; else edit">
+  {{data | date:'dd/MM/yyyy'}}
+</ng-container>
+
+<ng-template #edit>
+  <ng-container [formGroup]="formGroup">
+    <input type="text"
+           [formControlName]="config.attributes.name"
+           placeholder="Datepicker"
+           bsDatepicker>
+  </ng-container>
+</ng-template>
+

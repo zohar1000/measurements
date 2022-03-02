@@ -10,8 +10,10 @@ import { InputType } from './shared/enums/input-type.enum';
 })
 export class AppComponent {
   data = [
-    { time: '2022-02-02 10:00:00', pulse: 70, pressure: 80 },
-    { time: '2022-01-01 10:00:00', pulse: 90, pressure: 100 },
+    // { time: '2022-02-02 10:00:00', pulse: 70, pressure: 80 },
+    // { time: '2022-01-01 10:00:00', pulse: 90, pressure: 100 },
+    { time: new Date(), pulse: 70, pressure: 80 },
+    { time: new Date(), pulse: 90, pressure: 100 },
   ];
   rowFormConfig: FormConfig = {
     fields: [
@@ -27,10 +29,10 @@ export class AppComponent {
     });
   }
 
-  onRowEdited({ row, editedRow }) {
-    const ix = this.data.findIndex(item => item === row);
+  onRowEdited({ value, editedRowRef }) {
+    const ix = this.data.findIndex(item => item === editedRowRef);
     setTimeout(() => {
-      this.data[ix] = { ...editedRow };
+      this.data[ix] = { ...value };
       this.data = [ ...this.data ];
     });
   }

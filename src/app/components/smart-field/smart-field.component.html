@@ -8,6 +8,14 @@
   >
   </app-smart-input>
 
+  <app-smart-date *ngSwitchCase="InputType.Date"
+      [formGroup]="formGroup"
+      [config]="config"
+      [data]="data"
+      [fieldMode]="fieldMode"
+  >
+  </app-smart-date>
+
 </ng-container>
 
 
