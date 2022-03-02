@@ -1,0 +1,27 @@
+<!--   ADD ROW   -->
+<ng-container *ngIf="editedRowRef===data">
+  <td app-smart-field *ngFor="let name of fieldNames"
+      [formGroup]="fgEdit"
+      [config]="fieldConfigs[name]"
+      [inputType]="fieldConfigs[name].inputType"
+      [fieldMode]="FieldMode.Edit">
+  </td>
+  <td>
+    <button (click)="onClickSave(editedRow)" [disabled]="fgEdit.invalid">Save</button>
+    <button (click)="onClickCancel()">Cancel</button>
+  </td>
+</ng-container>
+
+<!--   EDIT ROW   -->
+<ng-container *ngIf="editedRowRef!==data">
+  <td app-smart-field *ngFor="let name of fieldNames"
+    [formGroup]="fgEdit"
+    [config]="fieldConfigs[name]"
+    [data]="data[name]"
+    [inputType]="fieldConfigs[name].inputType"
+    [fieldMode]="FieldMode.Display">
+  </td>
+  <td>
+    <button (click)="onClickEdit(data)" [hidden]="editedRowRef">Edit</button>
+  </td>
+</ng-container>

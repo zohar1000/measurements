@@ -1,5 +1,3 @@
-<p>measurement-table works!</p>
-
 <table class="table">
   <thead>
     <th *ngFor="let name of fieldNames">{{name | titlecase}}</th>
@@ -15,12 +13,13 @@
         <td><button (click)="onClickAdd()" [disabled]="fgAdd.invalid">ADD</button></td>
       </ng-container>
     </tr>
-    <tr app-mediator *ngFor="let row of data ; let i=index"
-        [row]="row"
+    <tr app-smart-native-table-row *ngFor="let rowData of data"
+        [data]="rowData"
         [fgEdit]="fgEdit"
-        [config]="itemConfig"
+        [config]="rowFormConfig"
         [editedRowRef]="editedRowRef"
         [fieldNames]="fieldNames"
+        [fieldConfigs]="fieldConfigs"
         (startEditRow)="onStartEditRow($event)"
         (rowUpdated)="onRowUpdated($event)"
         (rowCanceled)="onRowCanceled()">

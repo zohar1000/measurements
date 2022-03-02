@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SmartFormComponent } from './smart-form.component';
+import { SmartFieldComponent } from './smart-field.component';
 
-describe('SmartFormComponent', () => {
-  let component: SmartFormComponent;
-  let fixture: ComponentFixture<SmartFormComponent>;
+describe('SmartFieldComponent', () => {
+  let component: SmartFieldComponent;
+  let fixture: ComponentFixture<SmartFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SmartFormComponent ]
+      declarations: [ SmartFieldComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SmartFormComponent);
+    fixture = TestBed.createComponent(SmartFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

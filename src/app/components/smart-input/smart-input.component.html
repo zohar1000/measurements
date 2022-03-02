@@ -1,0 +1,10 @@
+<ng-container *ngIf="fieldMode===FieldMode.Display; else edit">
+  {{data}}
+</ng-container>
+
+<ng-template #edit>
+  <ng-container [formGroup]="formGroup">
+    <input [formControlName]="config.attributes.name">
+  </ng-container>
+</ng-template>
+

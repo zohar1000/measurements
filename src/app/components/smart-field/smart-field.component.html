@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="inputType">
+
+  <app-smart-input *ngSwitchCase="InputType.Number"
+      [formGroup]="formGroup"
+      [config]="config"
+      [data]="data"
+      [fieldMode]="fieldMode"
+  >
+  </app-smart-input>
+
+</ng-container>
+
+
+
+

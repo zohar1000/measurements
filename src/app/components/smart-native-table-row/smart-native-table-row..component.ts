@@ -1,25 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormConfig } from '../../shared/models/form-config.model';
+import { FieldMode } from '../../shared/enums/field-mode.enum';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'tr[app-mediator]',
-  templateUrl: './mediator.component.html',
-  styleUrls: ['./mediator.component.scss']
+  selector: 'tr[app-smart-native-table-row]',
+  templateUrl: './smart-native-table-row.component.html',
+  styleUrls: ['./smart-native-table-row..component.scss']
 })
-export class MediatorComponent {
-  @Input() row;
+export class SmartNativeTableRowComponent {
+  @Input() data;
   @Input() fgEdit: FormGroup;
-  @Input() isDisplay = true;
-  @Input() isEdit = false;
   @Input() config: FormConfig;
   @Input() editedRowRef;
+  @Input() fieldNames: string[];
+  @Input() fieldConfigs;
   @Output() rowAdded = new EventEmitter();
   @Output() startEditRow = new EventEmitter();
   @Output() rowUpdated = new EventEmitter();
   @Output() rowCanceled = new EventEmitter();
-  @Input() fieldNames: string[];
+  FieldMode = FieldMode;
   editedRow;
 
   onClickEdit(row) {
@@ -35,10 +36,10 @@ export class MediatorComponent {
   }
 
   onClickSave(row) {
-    const message = `update for time ${this.editedRow.time}: ${JSON.stringify(this.editedRow)}`;
+    const message = `update row to: ${JSON.stringify(this.fgEdit.value)}`;
     console.log(message);
     alert(message);
-    this.rowUpdated.emit({ row, editedRow: this.editedRow });
+    this.rowUpdated.emit({ row, editedRow: this.fgEdit.value });
   }
 
   onClickCancel() {

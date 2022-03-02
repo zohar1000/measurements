@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediatorComponent } from './mediator.component';
+import { SmartInputComponent } from './smart-input.component';
 
-describe('MediatorComponent', () => {
-  let component: MediatorComponent;
-  let fixture: ComponentFixture<MediatorComponent>;
+describe('SmartInputComponent', () => {
+  let component: SmartInputComponent;
+  let fixture: ComponentFixture<SmartInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MediatorComponent ]
+      declarations: [ SmartInputComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediatorComponent);
+    fixture = TestBed.createComponent(SmartInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

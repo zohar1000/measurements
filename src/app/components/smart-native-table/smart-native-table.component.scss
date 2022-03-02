@@ -1,0 +1,75 @@
+//$border: 1px solid black;
+//
+//table {
+//  border: 1px solid black;
+//  border-collapse: collapse;
+//  border-spacing: 3px;
+//  background: yellow;
+//}
+//
+//td {
+//  border: $border !important;
+//}
+
+//td:first-child, th:first-child {
+//  border-left: none;
+//}
+
+//.table thead td {
+//  border-left: 1px solid #c3c3c3 !important;
+//  border-right: 1px solid #c3c3c3;
+//}
+//
+//d {
+//  border: 1px solid black !important;
+//  //border-right: 1px solid #c3c3c3 !important;
+//}
+
+/*
+table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+table td:first-child {
+  border-left: none;
+}
+
+table td:last-child {
+  border-right: none;
+}
+
+table, tr, th {
+  border: 1px solid;
+}
+*/
+
+/*
+tbody.disabled {
+  pointer-events: none;
+}
+
+td {
+  //padding-inline: 0.5rem;
+}
+
+input.ng-invalid {
+  border: red 1px solid !important;
+}
+
+input {
+  //outline: none;
+}
+
+!* Chrome, Safari, Edge, Opera *!
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+!* Firefox *!
+input[type=number] {
+  -moz-appearance: textfield;
+}
+*/
